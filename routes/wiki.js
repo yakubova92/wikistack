@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  res.send('response to POST request to /wiki/');
+  res.json(req.body);
 });
 
 router.get('/add', function(req, res, next) {
