@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 
 const models = require('./models');
+const routes = require('./routes/index.js');
 
 //Creating the tables
 models.User.sync({force: true})
@@ -25,7 +26,7 @@ models.User.sync({force: true})
 
 
 //Database Sync
-models.db.sync({force: true})       //'force true' recreates a new table 
+models.db.sync({force: true})       //'force true' recreates a new table
 .then(function () {
     console.log('All tables created!');
     // app.listen(3000, function () {
@@ -49,7 +50,9 @@ app.set('view engine', 'html');
 // when res.render works with html files, have it use nunjucks to do so
 app.engine('html', nunjucks.render);
 
-
+// app.use('/wiki', routes);
+// app.use('/wiki', routes);
+app.use('/', routes);
 
 app.get('/', function (req, res){
   res.render('index.html');
