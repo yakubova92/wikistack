@@ -14,7 +14,7 @@ const routes = require('./routes/index.js');
 models.User.sync({force: true})
 .then(function () {
     console.log('User table created!');
-    return models.Page.sync();
+    return models.Page.sync({force : true});
 })
 .then(function () {
     console.log('Page table created!');

@@ -16,7 +16,7 @@ const Page = db.define('page', {
         get() {
             const title = this.getDataValue('title');
             return '/wiki/' + title;
-        }
+        },
     },
     content: {
         type: Sequelize.TEXT,
@@ -52,6 +52,11 @@ const User = db.define('user', {
         }
     }
 });
+
+Page.beforeValidate((pageInstance, options) => {
+    console.log("ARE WE VALIDATING?? ", pageInstance)
+    pageInstance.urlTitle = pageInstance.title.replace(/\s+/g, '_').replace(/\W/g, '');
+})
 
 module.exports = {
   db,
