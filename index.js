@@ -1,13 +1,40 @@
 const express = require('express');
 const app = express(); //this makes 'app' a server
 //const router = express.Router();
-const sequelize= require('sequelize');
+const Sequelize= require('sequelize');
 const pg = require('pg');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 
-const model = require('./models');
+const models = require('./models');
+
+//Creating the tables
+models.User.sync({force: true})
+.then(function () {
+    console.log('User table created!');
+    return models.Page.sync();
+})
+.then(function () {
+    console.log('Page table created!');
+    // app.listen(3000, function () {
+    //     console.log('Server is listening on port 3000!');
+    // });
+})
+.catch(console.error.bind(console));
+
+
+//Database Sync
+models.db.sync({force: true})       //'force true' recreates a new table 
+.then(function () {
+    console.log('All tables created!');
+    // app.listen(3000, function () {
+    //     console.log('Server is listening on port 3000!');
+    // });
+})
+.catch(console.error.bind(console));
+
+
 
 app.use(morgan('dev'));
 app.use(express.static(__dirname+'/public'));
