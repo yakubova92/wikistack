@@ -7,6 +7,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 
+const model = require('./models');
+
 app.use(morgan('dev'));
 app.use(express.static(__dirname+'/public'));
 app.use(bodyParser.urlencoded({extended: true}));
